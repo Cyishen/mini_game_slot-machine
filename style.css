@@ -57,15 +57,18 @@ body {
 }
 
 
-#spinner, #reseter {
+#spinner {
   width: 100px;
   height: 100px;
   border-radius: 100%;
   border: none;
   transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
 }
+#reseter {
+  display: none;
+}
 
-#spinner:hover, #reseter:hover {
+#spinner:hover {
   background: rgb(235, 92, 82);
   color: white;
 }

@@ -8,14 +8,13 @@
   document.querySelector("#reseter").addEventListener("click", initButton);
   
 
-  async function spinButton(e) {
-    initButton(false, 1, 2);
+  async function spinButton() {
+    initButton(false, 1, 1);
     const results = [];
 
     for (const door of doors) {
       const boxes = door.querySelector(".boxes");
       const duration = parseInt(boxes.style.transitionDuration);
-
       boxes.style.transform = "translateY(0)";
       await new Promise((resolve) => setTimeout(resolve, duration * 100));
 
@@ -35,7 +34,7 @@
       const boxes = door.querySelector(".boxes");
       const boxesClone = boxes.cloneNode(false);
       const pool = ["💰"];
-
+    
       if (firstInit) {
         door.dataset.spinned = "0";
       } else if (door.dataset.spinned === "1") {
@@ -47,27 +46,28 @@
         for (let n = 0; n < (groups > 0 ? groups : 1); n++) {
           arr.push(...items);
         }
+
         pool.push(...shuffle(arr));
 
         boxesClone.addEventListener(
           "transitionstart",
-          // function () {
-          //   door.dataset.spinned = "1";
-          //   this.querySelectorAll(".box").forEach((box) => {
-          //     box.style.filter = "blur(1px)";
-          //   });
-          // },
+          function () {
+            // door.dataset.spinned = "1";
+            this.querySelectorAll(".box").forEach((box) => {
+              box.style.filter = "blur(1px)";
+            });
+          },
           { once: true }
         );
 
         boxesClone.addEventListener(
           "transitionend",
-          // function () {
-          //   this.querySelectorAll(".box").forEach((box, index) => {
-          //     box.style.filter = "blur(0)";
-          //     if (index > 0) this.removeChild(box);
-          //   });
-          // },
+          function () {
+            this.querySelectorAll(".box").forEach((box, index) => {
+              box.style.filter = "blur(0)";
+              if (index > 0) this.removeChild(box);
+            });
+          },
           { once: true }
         );
       }
